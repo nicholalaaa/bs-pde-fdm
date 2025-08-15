@@ -70,6 +70,8 @@ examples/
 tests/
   test_cn_convergence.py # CN (log-space) → BS; checks γ ≤ γ_max
   test_toeplitz.py       # eigenvalues vs NumPy
+vba/
+  HW11 Numerical Methods.xlsm  # VBA macro file developed in numerical course
 ```
 
 ---
