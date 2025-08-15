@@ -7,11 +7,8 @@ Black–Scholes **PDE** pricing with **finite differences**. Implements:
 - Closed-form **Black–Scholes** (for validation)
 - Examples and tests (convergence vs grid, stability vs θ)
 
-> Goal: a clean, minimal reference implementation you can read in one sitting.
-
 ## Install
 ```bash
-python -m venv .venv && source .venv/bin/activate   # or use your env tool
 pip install -r requirements.txt
 ```
 
@@ -33,10 +30,3 @@ You should see a European call price from CN-FDM and the closed-form BS price.
 - Boundary conditions follow standard asymptotics: for calls, \(V(0,t)=0\), \(V(S_{max},t)≈S_{max}e^{-qτ}-Ke^{-rτ}\).
 - Tests compare CN price to closed-form BS and check Toeplitz eigenpairs against `numpy.linalg`.
 
-## Roadmap
-- Log-space grid (uniform in x=ln S) variant
-- American puts via PSOR
-- Adaptive Smax and non-uniform grids
-
-## License
-MIT
