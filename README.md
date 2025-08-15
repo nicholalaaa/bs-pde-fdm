@@ -1,11 +1,11 @@
 # bs-pde-fdm
 
 Black–Scholes **PDE** pricing with **finite differences**. Implements:
-- **BS → heat-equation transform** helpers & boundary builders
-- **θ-scheme** (Explicit, **Crank–Nicolson**, Implicit) on an S-grid
+- Log-space **θ-scheme** (Explicit / **Crank–Nicolson** / Implicit) on a **uniform x=ln(S/K)** grid
+- Parameters notation: **m** (space intervals), **x₀** (left boundary in x), **γ_max** (cap for γ)
 - **Thomas** tridiagonal solver
 - Closed-form **Black–Scholes** (for validation)
-- Examples and tests (convergence vs grid, stability vs θ)
+- Tests: CN price → BS as grid refines; Toeplitz tridiagonal eigenpairs
 
 ## Install
 ```bash
@@ -14,6 +14,7 @@ pip install -r requirements.txt
 
 ## Quick demo
 ```bash
+export PYTHONPATH=$PWD/src
 python -m examples.cn_call_demo
 ```
 You should see a European call price from CN-FDM and the closed-form BS price.
