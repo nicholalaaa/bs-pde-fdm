@@ -1,19 +1,17 @@
-from bs_pde_fdm.fdm_cn import price_european_call_cn
+from bs_pde_fdm.fdm_theta_log import price_call_theta_logspace
 from bs_pde_fdm.bs_closed_form import bs_price
 
 
 def main():
-    S0, K, T, r, q, sigma = 120.0, 119.0, 7/365, 0.005, 0.02, 0.1
+    S0, K, T, r, q, sigma = 120.0, 119.0, 7/365, 0.005, 0.02, 0.10
+    m = 20
+    x0 = -0.05   # left boundary in x
+    gamma_max = 24                         # your HW γ cap
+    theta = 0.5                              # CN
 
-    price_cn, Sgrid, Vgrid = price_european_call_cn(
-        S0, K, T, r, q, sigma,
-        Smax_mult=5.0, M=400, N=400, theta=0.5
-    )
-    price_bs = bs_price(S0, K, T, r, sigma, q=q, otype="call")
-
-    print(f"Crank-Nicolson price: {price_cn:.6f}")
-    print(f"Black-Scholes price:  {price_bs:.6f}")
-    print(f"Abs error:            {abs(price_cn - price_bs):.6e}")
+    p_fdm, meta = price_call_theta_logspace(S0, K, T, r, q, sigma, m, x0, gamma_max, theta)
+    p_bs = bs_price(S0, K, T, r, sigma, q=q, otype="call")
+    print(f"FDM (log-space θ): {p_fdm:.6f}   |   BS: {p_bs:.6f}   |   N={meta['N']}, dx={meta['dx']:.5f}")
 
 
 if __name__ == "__main__":
